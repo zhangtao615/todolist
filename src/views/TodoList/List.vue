@@ -4,13 +4,12 @@ defineProps({
   tasks: Array<Task>,
   onRemoveTask: Function
 })
-
-defineEmits(['onRemoveTask'])
 </script>
 
 <template>
   <h3>待办事项</h3>
   <div v-for="item in tasks?.filter((item) => !item.isCompleted)" :key="item.id" class="item">
+    <span>{{ item.time }}</span>
     <span>{{ item.task }}</span>
     <el-button @click="onRemoveTask?.(item.id)">完成</el-button>
   </div>
@@ -18,11 +17,10 @@ defineEmits(['onRemoveTask'])
   <div v-if="!tasks?.length">暂无待办事项</div>
 
   <h3>已完成事项</h3>
-  <el-space direction="vertical">
-    <div v-for="item in tasks?.filter((item) => item.isCompleted)" :key="item.id">
-      {{ item.task }}
-    </div>
-  </el-space>
+  <div v-for="item in tasks?.filter((item) => item.isCompleted)" :key="item.id" class="item">
+    <el-text tag="del">{{ item.time }}</el-text>
+    <el-text tag="del">{{ item.task }}</el-text>
+  </div>
 </template>
 
 <style scoped>
@@ -33,4 +31,3 @@ defineEmits(['onRemoveTask'])
   margin-bottom: 5px;
 }
 </style>
-../../views/TodoList/utils.ts
